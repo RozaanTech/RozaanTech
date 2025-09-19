@@ -164,26 +164,13 @@
       padding: 80px 0;
       background: linear-gradient(to bottom, #f8fafc, #e6eef0);
     }
-    .contact-container {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 0 20px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-      align-items: start;
-    }
     .contact-info {
       background: white;
       border-radius: 16px;
       padding: 40px;
       box-shadow: 0 10px 30px rgba(9,30,63,0.08);
-    }
-    .contact-form-container {
-      background: white;
-      border-radius: 16px;
-      padding: 40px;
-      box-shadow: 0 10px 30px rgba(9,30,63,0.08);
+      max-width: 800px;
+      margin: 0 auto;
     }
     .contact-heading {
       font-size: 28px;
@@ -221,83 +208,6 @@
     .info-content p {
       margin: 0;
       color: var(--muted);
-    }
-    .form-group {
-      margin-bottom: 20px;
-    }
-    .form-group label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 600;
-      color: var(--dark);
-    }
-    .form-control {
-      width: 100%;
-      padding: 14px 16px;
-      border-radius: 10px;
-      border: 1px solid rgba(11,18,32,0.1);
-      font-size: 16px;
-      background: #f8fafc;
-      transition: var(--transition);
-      font-family: inherit;
-    }
-    .form-control:focus {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(14,165,164,0.1);
-      background: white;
-    }
-    textarea.form-control {
-      min-height: 120px;
-      resize: vertical;
-    }
-    .submit-btn {
-      background: var(--accent);
-      border: none;
-      color: white;
-      padding: 16px 24px;
-      border-radius: 10px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: var(--transition);
-      width: 100%;
-      font-size: 16px;
-    }
-    .submit-btn:hover {
-      background: var(--accent-dark);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(14,165,164,0.3);
-    }
-    .form-message {
-      padding: 12px;
-      border-radius: 8px;
-      margin-top: 20px;
-      display: none;
-      text-align: center;
-    }
-    .form-message.success {
-      background: #d4edda;
-      color: #155724;
-      display: block;
-    }
-    .form-message.error {
-      background: #f8d7da;
-      color: #721c24;
-      display: block;
-    }
-    .loading {
-      display: inline-block;
-      width: 20px;
-      height: 20px;
-      border: 3px solid rgba(255,255,255,.3);
-      border-radius: 50%;
-      border-top-color: #fff;
-      animation: spin 1s ease-in-out infinite;
-      margin-right: 10px;
-      vertical-align: middle;
-    }
-    @keyframes spin {
-      to { transform: rotate(360deg); }
     }
 
     /* Footer */
@@ -377,9 +287,6 @@
       .hero-inner{grid-template-columns:1fr; text-align:center}
       .hero-left h1{font-size:32px}
       .grid.services-grid{grid-template-columns:repeat(2,1fr)}
-      .contact-container {
-        grid-template-columns: 1fr;
-      }
       .footer-content {
         grid-template-columns: repeat(2, 1fr);
       }
@@ -401,7 +308,7 @@
       .social-links {
         justify-content: center;
       }
-      .contact-info, .contact-form-container {
+      .contact-info {
         padding: 24px;
       }
     }
@@ -410,6 +317,37 @@
     .fade-up{opacity:0; transform:translateY(18px); transition:all 700ms cubic-bezier(.2,.9,.2,1)}
     .fade-in{opacity:0; transition:all 900ms ease}
     .in-view{opacity:1; transform:none}
+  
+    /* Product Modal */
+    .modal {
+      display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+      background:rgba(0,0,0,0.7); z-index:9999; justify-content:center; align-items:center;
+    }
+    .modal-content {
+      background:white; padding:20px; border-radius:12px; max-width:700px; width:90%; max-height:80vh; overflow-y:auto;
+      box-shadow:0 10px 40px rgba(0,0,0,0.3);
+    }
+    .modal .close {
+      float:right; font-size:24px; cursor:pointer; font-weight:bold; color:#333;
+    }
+
+  
+/* Products responsive */
+@media (max-width:1000px){
+  #products .services-grid{grid-template-columns:repeat(2,1fr);}
+}
+@media (max-width:700px){
+  #products .services-grid{grid-template-columns:1fr;}
+  .modal-content {
+    padding: 14px;
+    width: 95%;
+  }
+  .modal-content video {
+    max-height: 240px;
+    object-fit: contain;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -418,7 +356,10 @@
   <header role="banner" aria-label="Top navigation">
     <div class="nav-inner">
       <div class="brand">
-        <div class="logo" aria-hidden="true">RT</div>
+		<div class="logo">
+		<img src="RozaanTech.png" alt="RozaanTech Logo" style="width:44px; height:44px; border-radius:10px;">
+		</div>
+
         <div>
           <div style="font-size:15px;color:#0b1220">RozaanTech</div>
           <div style="font-size:11px;color:var(--muted);margin-top:2px">CAD • AVEVA • Hexagon Automation</div>
@@ -428,6 +369,7 @@
       <nav class="desktop" role="navigation" aria-label="Main navigation">
         <a href="#about">About</a>
         <a href="#services">Services</a>
+        <a href="#products">Products</a>
         <a href="#tech">Technologies</a>
         <a href="#testimonials">Testimonials</a>
         <a href="#contact" class="cta-btn">Talk to Expert</a>
@@ -443,6 +385,7 @@
       <div class="container" style="padding:14px 20px;">
         <a href="#about" style="display:block;padding:8px 0;border-bottom:1px solid rgba(11,18,32,0.04)">About</a>
         <a href="#services" style="display:block;padding:8px 0;border-bottom:1px solid rgba(11,18,32,0.04)">Services</a>
+        <a href="#products" style="display:block;padding:8px 0;border-bottom:1px solid rgba(11,18,32,0.04)">Products</a>
         <a href="#tech" style="display:block;padding:8px 0;border-bottom:1px solid rgba(11,18,32,0.04)">Technologies</a>
         <a href="#testimonials" style="display:block;padding:8px 0;border-bottom:1px solid rgba(11,18,32,0.04)">Testimonials</a>
         <a href="#contact" style="display:block;padding:8px 0;">Contact</a>
@@ -453,7 +396,6 @@
   <!-- HERO -->
   <section class="hero" aria-label="Hero banner">
     <div class="hero-bg" style="background-image:url('Background_Piping.jpg');"></div>
-
 
     <div class="hero-inner container">
       <div class="hero-left fade-up">
@@ -495,8 +437,9 @@
 
   <!-- ABOUT -->
   <section id="about" class="container fade-up">
-    <div style="display:grid; grid-template-columns:1fr 420px; gap:28px; align-items:center">
+    <div style="display:grid; grid-template-columns:1fr 420px; gap:28px; align-items:center"><div>
       <div>
+	  <div>
         <h2 class="section-title">Who we are</h2>
         <p class="section-sub">RozaanTech builds purpose-driven automation for piping and plant design teams. We focus on delivering tools that integrate with your existing CAD and AVEVA setups (Hexagon too), so your engineers spend time on engineering — not repetitive clicks.</p>
 
@@ -508,7 +451,6 @@
       </div>
 
       <div style="border-radius:14px; overflow:hidden; box-shadow:0 10px 30px rgba(9,30,63,0.06)">
-        <img src="https://images.unsplash.com/photo-1531497865143-9d5f8d6b6d01?q=80&w=1200&auto=format&fit=crop" alt="about image" style="width:100%; height:100%; object-fit:cover;">
       </div>
     </div>
   </section>
@@ -516,6 +458,7 @@
   <!-- SERVICES -->
   <section id="services" class="container">
     <div style="text-align:center; margin-bottom:36px;">
+	</div>
       <h2 class="section-title">Services</h2>
       <p class="section-sub">We deliver turnkey tools and integrations that speed up piping design workflows.</p>
     </div>
@@ -559,6 +502,81 @@
     </div>
   </section>
 
+  <!-- PRODUCTS -->
+  <section id="products" class="container">
+    <div style="text-align:center; margin-bottom:36px;">
+	</div>
+      <h2 class="section-title">Our Products</h2>
+      <p class="section-sub">Explore the automation tools and solutions we’ve built for engineering teams.</p>
+    </div>
+
+    <div class="grid services-grid fade-up" style="grid-template-columns:repeat(3,1fr)">
+      <!-- Product Card 1 -->
+      <div class="service-card product-card" data-product="p1">
+        <div class="service-icon" style="background:linear-gradient(135deg,#0ea5a4,#06b6d4)">
+          <i class="fas fa-cube"></i>
+        </div>
+        <div class="service-title">DWG to PDF Tool</div>
+        <div class="service-desc">One-click DWG/DXF to PDF conversion with layout and model support.</div>
+      </div>
+
+      <!-- Product Card 2 -->
+      <div class="service-card product-card" data-product="p2">
+        <div class="service-icon" style="background:linear-gradient(135deg,#7c3aed,#06b6d4)">
+          <i class="fas fa-layer-group"></i>
+        </div>
+        <div class="service-title">DWG Compare & Cloud</div>
+        <div class="service-desc">AutoCAD plugin to compare drawings and automatically cloud revisions.</div>
+      </div>
+
+      <!-- Product Card 3 -->
+      <div class="service-card product-card" data-product="p3">
+        <div class="service-icon" style="background:linear-gradient(135deg,#ef4444,#f97316)">
+          <i class="fas fa-file-pdf"></i>
+        </div>
+        <div class="service-title">PDF Compare Tool</div>
+        <div class="service-desc">Offline PDF comparison tool to highlight differences visually.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hidden Product Details -->
+  <div id="product-details" style="display:none;">
+    <div id="p1" class="product-detail">
+      <h2>DWG to PDF Tool</h2>
+      <p>A lightweight desktop app that converts DWG/DXF files into PDF — supports both model space and multiple layouts.</p>
+      <video controls style="width:100%; border-radius:10px;">
+        <source src="RozaanTech Batch CAD to PDF Converter.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <div id="p2" class="product-detail">
+      <h2>DWG Compare & Cloud</h2>
+      <p>AutoCAD plugin that compares two DWG files and automatically clouds the differences. Saves hours of manual checking.</p>
+      <video controls style="width:100%; border-radius:10px;">
+        <source src="product2.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <div id="p3" class="product-detail">
+      <h2>PDF Compare Tool</h2>
+      <p>A free offline tool to visually compare PDFs page-by-page and highlight only real differences, avoiding false positives.</p>
+      <video controls style="width:100%; border-radius:10px;">
+        <source src="product3.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+
+  <!-- Product Modal -->
+  <div id="productModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+
+
   <!-- TECHNOLOGIES -->
   <section id="tech" style="background:#ffffff; border-top:1px solid rgba(11,18,32,0.03); border-bottom:1px solid rgba(11,18,32,0.03);">
     <div class="container" style="text-align:center;">
@@ -566,18 +584,17 @@
       <p class="section-sub">We integrate with industry standard platforms and formats.</p>
 
       <div class="tech-row">
-        <div class="tech-card"><img src="https://upload.wikimedia.org/wikipedia/commons/0/0c/Autodesk_logo_2021.svg" alt="Autodesk" style="height:34px; object-fit:contain"></div>
-        <div class="tech-card"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f3/AVEVA_Logo.svg" alt="AVEVA" style="height:34px; object-fit:contain"></div>
-        <div class="tech-card"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Hexagon_logo.svg" alt="Hexagon" style="height:34px; object-fit:contain"></div>
-        <div class="tech-card"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/ISO_9001_logo.png" alt="ISO" style="height:34px; object-fit:contain"></div>
-        <div class="tech-card"><img src="https://upload.wikimedia.org/wikipedia/commons/9/90/JSON_vector_logo.svg" alt="JSON" style="height:34px; object-fit:contain"></div>
-      </div>
+        <div class="tech-card"><img src="AutoDesk-Logo.png" alt="Autodesk" style="height:100px; object-fit:contain;"></div>
+        <div class="tech-card"><img src="Aveva-Logo.png" alt="Aveva" style="height:100px; object-fit:contain;"></div>
+        <div class="tech-card"><img src="Hexagon-Logo.svg" alt="Hexagon" style="height:100px; object-fit:contain;"></div>
+     </div>
     </div>
   </section>
 
   <!-- TESTIMONIALS -->
   <section id="testimonials" class="container">
-    <div style="text-align:center; margin-bottom:36px;">
+    <div style="text-align:center; margin-bottom:36px;"></div>
+	
       <h2 class="section-title">What clients say</h2>
       <p class="section-sub">Trusted by engineering teams across projects and sites.</p>
     </div>
@@ -597,11 +614,13 @@
 
   <!-- CONTACT SECTION - UPDATED -->
   <section id="contact" class="contact-section">
-    <div class="contact-container">
+    <div class="container" style="text-align:center; margin-bottom:36px;">
+      <h2 class="section-title">Get in touch</h2>
+      <p class="section-sub">Have a project in mind? Let's discuss how we can help automate your piping design workflows.</p>
+    </div>
+
+    <div class="container">
       <div class="contact-info fade-up">
-        <h2 class="contact-heading">Get in touch</h2>
-        <p class="contact-subheading">Have a project in mind? Let's discuss how we can help automate your piping design workflows.</p>
-        
         <div class="info-item">
           <div class="info-icon">
             <i class="fas fa-envelope"></i>
@@ -612,7 +631,6 @@
           </div>
         </div>
         
-      
         <div class="info-item">
           <div class="info-icon">
             <i class="fas fa-map-marker-alt"></i>
@@ -629,56 +647,9 @@
           </div>
           <div class="info-content">
             <h3>Response Time</h3>
-            <p>We typically reply within 7 business day</p>
+            <p>We typically reply within 1 business day</p>
           </div>
         </div>
-      </div>
-      
-      <div class="contact-form-container fade-up">
-        <h3 class="contact-heading">Send us a message</h3>
-        <p class="contact-subheading">Fill out the form below and we'll get back to you as soon as possible.</p>
-        
-        <form id="contactForm" action="https://formspree.io/f/mpzvwqgg" method="POST">
-          <div class="form-group">
-            <label for="name">Your Name *</label>
-            <input type="text" id="name" name="name" class="form-control" required>
-          </div>
-          
-          <div class="form-group">
-            <label for="email">Email Address *</label>
-            <input type="email" id="email" name="email" class="form-control" required>
-          </div>
-          
-          <div class="form-group">
-            <label for="company">Company</label>
-            <input type="text" id="company" name="company" class="form-control">
-          </div>
-          
-          <div class="form-group">
-            <label for="service">Service of Interest</label>
-            <select id="service" name="service" class="form-control">
-              <option value="">Select a service</option>
-              <option value="cad">CAD Customization</option>
-              <option value="aveva">AVEVA Tools & Macros</option>
-              <option value="hexagon">Hexagon Integrations</option>
-              <option value="api">API Development</option>
-              <option value="workflow">Workflow Automation</option>
-              <option value="support">Support & Maintenance</option>
-            </select>
-          </div>
-          
-          <div class="form-group">
-            <label for="message">Project Details *</label>
-            <textarea id="message" name="message" class="form-control" required></textarea>
-          </div>
-          
-          <button type="submit" class="submit-btn">
-            <span id="btnText">Send Message</span>
-            <span id="btnLoading" class="loading" style="display:none"></span>
-          </button>
-          
-          <div id="formMsg" class="form-message"></div>
-        </form>
       </div>
     </div>
   </section>
@@ -699,7 +670,7 @@
         <div class="footer-column">
           <h3>Services</h3>
           <a href="#services">CAD Customization</a>
-          <a href#services">AVEVA Tools</a>
+          <a href="#services">AVEVA Tools</a>
           <a href="#services">Hexagon Integration</a>
           <a href="#services">API Development</a>
         </div>
@@ -755,52 +726,6 @@
       heroBg.style.transform = `translateY(${sc * 0.12}px)`;
     }, {passive:true});
 
-    // Form submission handling
-    const form = document.getElementById('contactForm');
-    const submitBtn = document.getElementById('submitBtn');
-    const btnText = document.getElementById('btnText');
-    const btnLoading = document.getElementById('btnLoading');
-    const formMsg = document.getElementById('formMsg');
-    
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      
-      // Show loading state
-      btnText.style.display = 'none';
-      btnLoading.style.display = 'inline-block';
-      submitBtn.disabled = true;
-      
-      try {
-        // Using Formspree to handle form submission
-        const formData = new FormData(form);
-        const response = await fetch(form.action, {
-          method: 'POST',
-          body: formData,
-          headers: {
-            'Accept': 'application/json'
-          }
-        });
-        
-        if (response.ok) {
-          // Success message
-          formMsg.textContent = 'Thank you! Your message has been sent. We will get back to you soon.';
-          formMsg.className = 'form-message success';
-          form.reset();
-        } else {
-          throw new Error('Form submission failed');
-        }
-      } catch (error) {
-        // Error message
-        formMsg.textContent = 'Sorry, there was an error sending your message. Please try emailing us directly at hello@Rozaantech.com';
-        formMsg.className = 'form-message error';
-      } finally {
-        // Reset button state
-        btnText.style.display = 'inline-block';
-        btnLoading.style.display = 'none';
-        submitBtn.disabled = false;
-      }
-    });
-
     // Back to top button
     const backToTopBtn = document.getElementById('backToTop');
     window.addEventListener('scroll', () => {
@@ -824,6 +749,28 @@
         header.classList.remove('scrolled');
       }
     });
+  
+
+// Product modal
+const productCards = document.querySelectorAll('.product-card');
+const modal = document.getElementById('productModal');
+const modalBody = document.getElementById('modal-body');
+const closeBtn = modal.querySelector('.close');
+
+productCards.forEach(card => {
+  card.addEventListener('click', () => {
+    const id = card.getAttribute('data-product');
+    const detail = document.querySelector(`#product-details #${id}`);
+    if(detail){
+      modalBody.innerHTML = detail.innerHTML;
+      modal.style.display = 'flex';
+    }
+  });
+});
+
+closeBtn.addEventListener('click', () => modal.style.display = 'none');
+window.addEventListener('click', e => { if(e.target === modal) modal.style.display = 'none'; });
+
   </script>
 </body>
-</html>
+</html></section>
